@@ -1,0 +1,32 @@
+public class Solution {
+
+  int rotateBinarySearch(int[] array, int value) {
+    if (array == null) return -1;
+    return recRotateBinarySearch(array, value, 0, array.length - 1);
+  }
+
+  int recRotateBinarySearch(int[] array, int value, int L, int R) {
+    if (L > R) return -1;
+    int mid = (R-L) / 2 + L;
+    if (array[mid] == value) return mid;
+    if (array[L] < array[mid]) { // should be left
+      if (array[mid] < value) {
+        return recRotateBinarySearch(array, value, mid+1, R);
+      } else {
+        return recRotateBinarySearch(array, value, L, mid-1);
+      }
+    } else {
+      if (array[mid] < value) {
+        return recRotateBinarySearch(array, value, L, mid-1);
+      } else {
+        return recRotateBinarySearch(array, value, mid+1, R);
+      }
+    }
+  }
+
+  public static void main(String[] args) {
+    int idx = new Solution().rotateBinarySearch(new int[] {4,5,6,7,0,1,2}, 6);
+    System.out.println(idx);
+  }
+
+}
